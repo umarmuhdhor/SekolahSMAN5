@@ -45,4 +45,40 @@ final class AuditEventType
     public const USER_STATUS_CHANGED = 'user.status_changed';
 
     public const USER_DELETED = 'user.deleted';
+
+    public const NEWS_CREATED = 'news.created';
+
+    public const NEWS_UPDATED = 'news.updated';
+
+    public const NEWS_DELETED = 'news.deleted';
+
+    public const NEWS_PUBLISHED = 'news.published';
+
+    public const NEWS_UNPUBLISHED = 'news.unpublished';
+
+    public const ANNOUNCEMENT_CREATED = 'announcement.created';
+
+    public const ANNOUNCEMENT_UPDATED = 'announcement.updated';
+
+    public const ANNOUNCEMENT_DELETED = 'announcement.deleted';
+
+    public const ANNOUNCEMENT_PUBLISHED = 'announcement.published';
+
+    public const ANNOUNCEMENT_UNPUBLISHED = 'announcement.unpublished';
+
+    public const GALLERY_CREATED = 'gallery.created';
+
+    public const GALLERY_UPDATED = 'gallery.updated';
+
+    public const GALLERY_DELETED = 'gallery.deleted';
+
+    public const GALLERY_PUBLISHED = 'gallery.published';
+
+    public const GALLERY_UNPUBLISHED = 'gallery.unpublished';
+
+    public const GALLERY_ITEM_ADDED = 'gallery.item_added';
+
+    public const GALLERY_ITEM_REMOVED = 'gallery.item_removed';
+
+    public const GALLERY_ITEMS_REORDERED = 'gallery.items_reordered';
 }

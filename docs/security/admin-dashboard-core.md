@@ -27,3 +27,7 @@ Dokumen ini menjelaskan fondasi dashboard admin dan navigation guard berbasis pe
 ## Catatan Scope
 - T011 tidak mengimplementasikan modul bisnis baru.
 - Link modul yang belum diimplementasikan tetap ditampilkan sebagai `Segera Hadir` bila permission user memenuhi.
+- Sejak T012, shortcut `Media` sudah aktif dan mengarah ke modul media library.
+- Sejak T013, shortcut `News` sudah aktif dan mengarah ke modul news admin.
+- Sejak T014, shortcut `Announcements` sudah aktif dan mengarah ke modul announcements admin.
+- Sejak T015, shortcut `Galleries` sudah aktif dan mengarah ke modul galleries admin.

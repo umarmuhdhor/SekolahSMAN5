@@ -1,10 +1,15 @@
 # Module Announcements
 
 ## Tujuan
-Mengelola pengumuman beserta aturan publish window.
+Mengelola pengumuman resmi sekolah beserta aturan publish window.
 
 ## Status
-Placeholder struktur modul pada T002. Implementasi detail dilakukan pada task modul terkait di roadmap.
+Implementasi admin aktif pada T014:
+- CRUD pengumuman di panel admin (`/admin/announcements`),
+- lifecycle status `draft` / `published` / `archived`,
+- validasi publish window (`publish_end_at >= publish_start_at`),
+- slug unik server-side untuk URL publik,
+- audit event pengumuman (`announcement.created`, `announcement.updated`, `announcement.deleted`, `announcement.published`, `announcement.unpublished`).
 
 ## Subdirektori
 - Actions

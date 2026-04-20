@@ -3,6 +3,16 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Modules\Announcements\Models\Announcement;
+use App\Modules\Announcements\Observers\AnnouncementAuditObserver;
+use App\Modules\Galleries\Models\Gallery;
+use App\Modules\Galleries\Models\GalleryItem;
+use App\Modules\Galleries\Observers\GalleryAuditObserver;
+use App\Modules\Galleries\Observers\GalleryItemAuditObserver;
+use App\Modules\MediaLibrary\Models\MediaAsset;
+use App\Modules\MediaLibrary\Observers\MediaAssetAuditObserver;
+use App\Modules\News\Models\News;
+use App\Modules\News\Observers\NewsAuditObserver;
 use App\Modules\Users\Observers\UserAuditObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,5 +32,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         User::observe(UserAuditObserver::class);
+        MediaAsset::observe(MediaAssetAuditObserver::class);
+        News::observe(NewsAuditObserver::class);
+        Announcement::observe(AnnouncementAuditObserver::class);
+        Gallery::observe(GalleryAuditObserver::class);
+        GalleryItem::observe(GalleryItemAuditObserver::class);
     }
 }

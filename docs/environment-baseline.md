@@ -32,6 +32,16 @@ Dokumen ini menetapkan baseline konfigurasi environment untuk local, staging, da
 - [ ] Konfigurasi cocok dengan stack terkunci master plan.
 - [ ] Dokumen setup cukup untuk onboarding developer baru.
 
+## Catatan Variabel Tambahan (T012)
+Untuk media library foundation, template environment menambahkan:
+- `MEDIA_LIBRARY_DISK`
+- `MEDIA_LIBRARY_DIRECTORY`
+- `MEDIA_LIBRARY_VISIBILITY`
+- `MEDIA_LIBRARY_MAX_SIZE_IMAGE_KB`
+- `MEDIA_LIBRARY_MAX_SIZE_DOCUMENT_KB`
+- `MEDIA_LIBRARY_MAX_SIZE_VIDEO_KB`
+- `MEDIA_LIBRARY_MAX_SIZE_DEFAULT_KB`
+
 ## Catatan Security
 - Production wajib `APP_DEBUG=false`.
 - Gunakan secret manager untuk key sensitif.

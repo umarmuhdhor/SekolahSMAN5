@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Modules\Dashboard\Actions;
 
+use App\Filament\Resources\Announcements\AnnouncementResource;
+use App\Filament\Resources\Galleries\GalleryResource;
+use App\Filament\Resources\MediaAssets\MediaAssetResource;
+use App\Filament\Resources\News\NewsResource;
 use App\Filament\Resources\Users\UserResource;
 use App\Models\User;
 use App\Modules\RolesPermissions\Support\PermissionName;
@@ -29,32 +33,32 @@ class GetDashboardQuickLinksAction
                 'label' => 'News',
                 'description' => 'Kelola berita sekolah.',
                 'permission' => PermissionName::NEWS_VIEW,
-                'is_ready' => false,
-                'url' => null,
+                'is_ready' => true,
+                'url' => NewsResource::getUrl('index'),
             ],
             [
                 'key' => 'announcements',
                 'label' => 'Announcements',
                 'description' => 'Kelola pengumuman resmi.',
                 'permission' => PermissionName::ANNOUNCEMENTS_VIEW,
-                'is_ready' => false,
-                'url' => null,
+                'is_ready' => true,
+                'url' => AnnouncementResource::getUrl('index'),
             ],
             [
                 'key' => 'galleries',
                 'label' => 'Galleries',
                 'description' => 'Kelola album galeri.',
                 'permission' => PermissionName::GALLERIES_VIEW,
-                'is_ready' => false,
-                'url' => null,
+                'is_ready' => true,
+                'url' => GalleryResource::getUrl('index'),
             ],
             [
                 'key' => 'media',
                 'label' => 'Media',
                 'description' => 'Kelola library media.',
                 'permission' => PermissionName::MEDIA_VIEW,
-                'is_ready' => false,
-                'url' => null,
+                'is_ready' => true,
+                'url' => MediaAssetResource::getUrl('index'),
             ],
             [
                 'key' => 'school_profile',

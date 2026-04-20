@@ -7,7 +7,7 @@ use App\Filament\Resources\MediaAssets\Pages\EditMediaAsset;
 use App\Filament\Resources\MediaAssets\Pages\ListMediaAssets;
 use App\Filament\Resources\MediaAssets\Schemas\MediaAssetForm;
 use App\Filament\Resources\MediaAssets\Tables\MediaAssetsTable;
-use App\Models\MediaAsset;
+use App\Modules\MediaLibrary\Models\MediaAsset;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -18,7 +18,15 @@ class MediaAssetResource extends Resource
 {
     protected static ?string $model = MediaAsset::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPhoto;
+
+    protected static ?string $navigationLabel = 'Media Library';
+
+    protected static ?string $modelLabel = 'Media';
+
+    protected static string|\UnitEnum|null $navigationGroup = 'Konten';
+
+    protected static ?int $navigationSort = 20;
 
     public static function form(Schema $schema): Schema
     {

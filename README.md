@@ -27,6 +27,10 @@ Repository ini berisi implementasi CMS Sekolah Dinamis berbasis Laravel 13 + Fil
 - T009: Audit log foundation selesai.
 - T010: User management module selesai.
 - T011: Admin dashboard core selesai.
+- T012: Media library foundation selesai.
+- T013: News module (admin) selesai.
+- T014: Announcement module (admin) selesai.
+- T015: Gallery module (admin) selesai.
 
 ## Menjalankan Proyek (Default: Docker Compose)
 1. Salin environment local:
@@ -83,6 +87,34 @@ Seed default akan membuat akun super admin berdasarkan variabel:
 - Dashboard admin memiliki widget ringkasan operasional.
 - Quick links modul inti disaring otomatis berdasarkan permission user.
 - Modul yang belum diimplementasikan tetap ditandai `Segera Hadir` tanpa membuka akses backend baru.
+- Sejak T013, quick link `News` sudah aktif dan mengarah ke `/admin/news`.
+- Sejak T014, quick link `Announcements` sudah aktif dan mengarah ke `/admin/announcements`.
+- Sejak T015, quick link `Galleries` sudah aktif dan mengarah ke `/admin/galleries`.
+
+## Catatan Media T012
+- Modul media library tersedia di admin panel (`/admin/media-assets`).
+- Upload media tervalidasi (MIME whitelist, batas ukuran per tipe, dan checksum).
+- Replace/delete media melakukan cleanup file di storage dan audit event tercatat.
+
+## Catatan News T013
+- Modul news tersedia di admin panel (`/admin/news`) dengan CRUD lengkap.
+- Slug berita dijaga unik server-side dan tervalidasi oleh constraint database.
+- Publish/unpublish diproteksi backend authorization (`news.publish`) dan tidak hanya dibatasi UI.
+- Audit mutasi berita aktif (`news.created`, `news.updated`, `news.deleted`, `news.published`, `news.unpublished`).
+
+## Catatan Announcements T014
+- Modul announcements tersedia di admin panel (`/admin/announcements`) dengan CRUD lengkap.
+- Validasi publish window aktif: `publish_end_at` wajib sama atau setelah `publish_start_at`.
+- Slug pengumuman dijaga unik server-side dan tervalidasi oleh constraint database.
+- Publish/unpublish diproteksi backend authorization (`announcements.publish`) dan tidak hanya dibatasi UI.
+- Audit mutasi pengumuman aktif (`announcement.created`, `announcement.updated`, `announcement.deleted`, `announcement.published`, `announcement.unpublished`).
+
+## Catatan Galleries T015
+- Modul galleries tersedia di admin panel (`/admin/galleries`) dengan CRUD album lengkap.
+- Item manager gallery mendukung add/remove/reorder item media per album.
+- Sort order item dijaga unik dan stabil di level backend/database.
+- Publish/unpublish diproteksi backend authorization (`galleries.publish`) dan tidak hanya dibatasi UI.
+- Audit mutasi gallery aktif (`gallery.created`, `gallery.updated`, `gallery.deleted`, `gallery.published`, `gallery.unpublished`, `gallery.item_added`, `gallery.item_removed`, `gallery.items_reordered`).
 
 ## Referensi Operasional
 - Local docker setup: `docs/local-development-docker.md`
@@ -94,6 +126,10 @@ Seed default akan membuat akun super admin berdasarkan variabel:
 - Audit log foundation: `docs/security/audit-log-foundation.md`
 - User management foundation: `docs/security/user-management-foundation.md`
 - Admin dashboard core: `docs/security/admin-dashboard-core.md`
+- Media library foundation: `docs/security/media-library-foundation.md`
+- News module admin: `docs/security/news-module-admin.md`
+- Announcement module admin: `docs/security/announcement-module-admin.md`
+- Gallery module admin: `docs/security/gallery-module-admin.md`
 - Struktur modular: `docs/architecture/modular-monolith-structure.md`
 
 ## Workflow

@@ -4,7 +4,12 @@
 Mengelola konten berita, status publish, dan relasi author/media.
 
 ## Status
-Placeholder struktur modul pada T002. Implementasi detail dilakukan pada task modul terkait di roadmap.
+Implementasi admin aktif pada T013:
+- CRUD berita di panel admin (`/admin/news`),
+- lifecycle status `draft` / `published` / `archived`,
+- slug unik konsisten untuk URL publik,
+- relasi author (`users`) dan cover opsional (`media_assets`),
+- audit event berita (`news.created`, `news.updated`, `news.deleted`, `news.published`, `news.unpublished`).
 
 ## Subdirektori
 - Actions

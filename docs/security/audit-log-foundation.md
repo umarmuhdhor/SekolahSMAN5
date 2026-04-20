@@ -18,6 +18,10 @@ Dokumen ini menjelaskan fondasi audit log terstruktur dan immutable pada CMS Sek
   - `user.updated`
   - `user.status_changed`
   - `user.deleted`
+- Menyambungkan event media library:
+  - `media_upload`
+  - `media_replace`
+  - `media_delete`
 
 ## Struktur Data Audit
 Field minimum yang disimpan:

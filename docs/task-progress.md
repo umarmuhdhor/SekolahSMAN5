@@ -14,7 +14,11 @@ Referensi roadmap: `project-planning/19-master-task-roadmap.md`
 - [x] T009 - Audit Log Foundation
 - [x] T010 - User Management Module
 - [x] T011 - Admin Dashboard Core
-- [ ] T012+ - Menunggu eksekusi bertahap sesuai dependency
+- [x] T012 - Media Library Foundation
+- [x] T013 - News Module (Admin)
+- [x] T014 - Announcement Module (Admin)
+- [x] T015 - Gallery Module (Admin)
+- [ ] T016+ - Menunggu eksekusi bertahap sesuai dependency
 
 ## Catatan T002
 - Laravel 13 berhasil bootstrap.
@@ -77,3 +81,37 @@ Referensi roadmap: `project-planning/19-master-task-roadmap.md`
 - Quick links modul inti ditambahkan dan difilter berdasarkan permission user.
 - Resource navigation (`Users`) dipastikan mengikuti policy `viewAny` sehingga hanya tampil untuk role berhak.
 - Feature tests dashboard core ditambahkan untuk verifikasi filtering quick links dan guard menu.
+
+## Catatan T012
+- Modul media library admin (`/admin/media-assets`) ditambahkan melalui Filament Resource.
+- Upload media tervalidasi server-side (MIME whitelist + batas ukuran file per tipe + checksum SHA-256).
+- Metadata media terstruktur disimpan pada tabel `media_assets`.
+- Replace/delete media melakukan cleanup object storage dan mencatat audit event (`media_upload`, `media_replace`, `media_delete`).
+- Feature tests media library ditambahkan untuk upload valid, invalid MIME, replace/delete, dan authorization access.
+
+## Catatan T013
+- Modul berita admin (`/admin/news`) ditambahkan melalui Filament Resource.
+- CRUD berita mencakup relasi author, cover media opsional, status lifecycle (`draft`, `published`, `archived`), dan slug unik server-side.
+- Policy `NewsPolicy` aktif untuk enforce `view/create/update/delete/publish` dengan own-vs-any scope.
+- Aksi publish/unpublish kini diverifikasi server-side dan tidak bergantung pada UI visibility.
+- Audit event berita aktif via observer (`news.created`, `news.updated`, `news.deleted`, `news.published`, `news.unpublished`).
+- Feature tests news ditambahkan untuk skenario pass/fail authorization, slug uniqueness, dan audit publish/unpublish.
+
+## Catatan T014
+- Modul pengumuman admin (`/admin/announcements`) ditambahkan melalui Filament Resource.
+- CRUD pengumuman mencakup status lifecycle (`draft`, `published`, `archived`), publish window (`publish_start_at`, `publish_end_at`), dan slug unik server-side.
+- Validasi backend `publish_end_at >= publish_start_at` aktif pada form announcement.
+- Policy `AnnouncementPolicy` aktif untuk enforce `view/create/update/delete/publish` dengan own-vs-any scope.
+- Aksi publish/unpublish diverifikasi server-side dan tercatat audit event (`announcement.created`, `announcement.updated`, `announcement.deleted`, `announcement.published`, `announcement.unpublished`).
+- Scope model `visibleOnPublic()` disiapkan untuk fondasi visibilitas publik berdasarkan status + publish window.
+- Feature tests announcement ditambahkan untuk authorization, publish window validation, slug uniqueness, audit event, dan visibilitas publik berbasis waktu.
+
+## Catatan T015
+- Modul gallery admin (`/admin/galleries`) ditambahkan melalui Filament Resource.
+- CRUD gallery mencakup status lifecycle (`draft`, `published`, `archived`) dan slug unik server-side.
+- Item manager gallery aktif (add/remove/reorder) dengan relasi media valid ke `media_assets`.
+- Urutan item dijaga stabil dengan `sort_order` unik per album dan normalisasi urutan backend.
+- Policy `GalleryPolicy` aktif untuk enforce `view/create/update/delete/publish` dengan own-vs-any scope.
+- Aksi publish/unpublish diverifikasi server-side dan tercatat audit event (`gallery.created`, `gallery.updated`, `gallery.deleted`, `gallery.published`, `gallery.unpublished`, `gallery.item_added`, `gallery.item_removed`, `gallery.items_reordered`).
+- Scope model `published()` disiapkan sebagai fondasi filter visibilitas publik gallery.
+- Feature tests gallery ditambahkan untuk authorization, slug uniqueness, sorting stability, media relation validity, dan audit event.

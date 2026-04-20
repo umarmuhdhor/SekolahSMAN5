@@ -4,7 +4,11 @@
 Mengelola upload, metadata, dan pemakaian ulang aset media.
 
 ## Status
-Placeholder struktur modul pada T002. Implementasi detail dilakukan pada task modul terkait di roadmap.
+Fondasi implementasi aktif pada T012:
+- upload media ke storage S3-compatible,
+- metadata media tersimpan terstruktur di DB,
+- replace/delete file dengan cleanup storage,
+- audit event media (`media_upload`, `media_replace`, `media_delete`).
 
 ## Subdirektori
 - Actions
