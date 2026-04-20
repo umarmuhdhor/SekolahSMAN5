@@ -84,6 +84,8 @@ class AdminDashboardCoreTest extends TestCase
         $this->assertNotNull($links['school_profile']['url']);
         $this->assertTrue((bool) $links['theme']['is_ready']);
         $this->assertNotNull($links['theme']['url']);
+        $this->assertTrue((bool) $links['navigation']['is_ready']);
+        $this->assertNotNull($links['navigation']['url']);
     }
 
     /**

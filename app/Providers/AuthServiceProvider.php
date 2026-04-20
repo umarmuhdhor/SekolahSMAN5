@@ -9,6 +9,8 @@ use App\Modules\Announcements\Models\Announcement;
 use App\Modules\AuditLogs\Models\AuditLog;
 use App\Modules\Galleries\Models\Gallery;
 use App\Modules\MediaLibrary\Models\MediaAsset;
+use App\Modules\NavigationMenus\Models\NavigationItem;
+use App\Modules\NavigationMenus\Models\NavigationMenu;
 use App\Modules\News\Models\News;
 use App\Modules\RolesPermissions\Support\AuthorizationAbility;
 use App\Modules\RolesPermissions\Support\PermissionName;
@@ -19,6 +21,8 @@ use App\Policies\AnnouncementPolicy;
 use App\Policies\AuditLogPolicy;
 use App\Policies\GalleryPolicy;
 use App\Policies\MediaAssetPolicy;
+use App\Policies\NavigationItemPolicy;
+use App\Policies\NavigationMenuPolicy;
 use App\Policies\NewsPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\RolePolicy;
@@ -48,6 +52,8 @@ class AuthServiceProvider extends ServiceProvider
         Gallery::class => GalleryPolicy::class,
         SchoolProfile::class => SchoolProfilePolicy::class,
         ThemeSetting::class => ThemeSettingPolicy::class,
+        NavigationMenu::class => NavigationMenuPolicy::class,
+        NavigationItem::class => NavigationItemPolicy::class,
     ];
 
     /**

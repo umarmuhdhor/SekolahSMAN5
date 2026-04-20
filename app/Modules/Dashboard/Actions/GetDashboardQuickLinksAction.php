@@ -7,6 +7,7 @@ namespace App\Modules\Dashboard\Actions;
 use App\Filament\Resources\Announcements\AnnouncementResource;
 use App\Filament\Resources\Galleries\GalleryResource;
 use App\Filament\Resources\MediaAssets\MediaAssetResource;
+use App\Filament\Resources\NavigationMenus\NavigationMenuResource;
 use App\Filament\Resources\News\NewsResource;
 use App\Filament\Resources\SchoolProfiles\SchoolProfileResource;
 use App\Filament\Resources\ThemeSettings\ThemeSettingResource;
@@ -83,8 +84,8 @@ class GetDashboardQuickLinksAction
                 'label' => 'Navigation',
                 'description' => 'Kelola menu website.',
                 'permission' => PermissionName::NAVIGATION_VIEW,
-                'is_ready' => false,
-                'url' => null,
+                'is_ready' => true,
+                'url' => NavigationMenuResource::getUrl('index'),
             ],
             [
                 'key' => 'audit_logs',

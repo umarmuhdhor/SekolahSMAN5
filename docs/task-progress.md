@@ -20,7 +20,8 @@ Referensi roadmap: `project-planning/19-master-task-roadmap.md`
 - [x] T015 - Gallery Module (Admin)
 - [x] T016 - School Profile Module (Admin)
 - [x] T017 - Theme Settings Module
-- [ ] T018+ - Menunggu eksekusi bertahap sesuai dependency
+- [x] T018 - Navigation Management Module
+- [ ] T019+ - Menunggu eksekusi bertahap sesuai dependency
 
 ## Catatan T002
 - Laravel 13 berhasil bootstrap.
@@ -135,3 +136,13 @@ Referensi roadmap: `project-planning/19-master-task-roadmap.md`
 - Policy `ThemeSettingPolicy` aktif untuk enforce `theme.view` dan `theme.update`.
 - Audit perubahan tema aktif via observer dengan event `theme.updated` dan `theme.logo_changed`.
 - Feature tests theme settings ditambahkan untuk skenario authorization allow/deny, validasi pass/fail HEX, fallback, dan audit event.
+
+## Catatan T018
+- Modul navigation management admin aktif melalui resource `navigation-menus` dan `navigation-items`.
+- CRUD menu + item hierarkis tersedia dengan dukungan parent-child item.
+- Validasi backend aktif untuk mencegah circular reference parent-child.
+- Validasi sort order unik per parent aktif (termasuk root level) dengan dukungan normalisasi urutan backend.
+- Validasi link item mendukung URL/path internal dan route name Laravel yang valid.
+- Policy `NavigationMenuPolicy` dan `NavigationItemPolicy` aktif untuk enforce `navigation.view` dan `navigation.update`.
+- Audit event navigation aktif via observer (`navigation.menu_updated`, `navigation.item_created`, `navigation.item_updated`, `navigation.item_deleted`, `navigation.items_reordered`).
+- Feature tests navigation ditambahkan untuk authorization allow/deny, validasi URL/route, validasi hierarchy/order, serta audit event.
