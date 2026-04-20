@@ -34,6 +34,7 @@ Repository ini berisi implementasi CMS Sekolah Dinamis berbasis Laravel 13 + Fil
 - T016: School profile module (admin) selesai.
 - T017: Theme settings module selesai.
 - T018: Navigation management module selesai.
+- T019: Audit log admin viewer selesai.
 
 ## Menjalankan Proyek (Default: Docker Compose)
 1. Salin environment local:
@@ -96,6 +97,7 @@ Seed default akan membuat akun super admin berdasarkan variabel:
 - Sejak T016, quick link `School Profile` sudah aktif dan mengarah ke `/admin/school-profile`.
 - Sejak T017, quick link `Theme Settings` sudah aktif dan mengarah ke `/admin/theme-settings`.
 - Sejak T018, quick link `Navigation` sudah aktif dan mengarah ke `/admin/navigation-menus`.
+- Sejak T019, quick link `Audit Logs` sudah aktif dan mengarah ke `/admin/audit-logs`.
 
 ## Catatan Media T012
 - Modul media library tersedia di admin panel (`/admin/media-assets`).
@@ -143,6 +145,11 @@ Seed default akan membuat akun super admin berdasarkan variabel:
 - Mutasi navigation diproteksi backend authorization (`navigation.update`) dan tidak hanya dibatasi UI.
 - Audit mutasi navigation aktif (`navigation.menu_updated`, `navigation.item_created`, `navigation.item_updated`, `navigation.item_deleted`, `navigation.items_reordered`).
 
+## Catatan Audit Log Viewer T019
+- Viewer audit log tersedia di admin panel (`/admin/audit-logs`) dengan mode read-only.
+- Filter audit mendukung actor, module, dan rentang tanggal untuk kebutuhan forensic baseline.
+- Akses viewer diproteksi backend authorization (`audit.view`) dan tidak hanya dibatasi UI.
+
 ## Referensi Operasional
 - Local docker setup: `docs/local-development-docker.md`
 - Environment baseline: `docs/environment-baseline.md`
@@ -160,6 +167,7 @@ Seed default akan membuat akun super admin berdasarkan variabel:
 - School profile module admin: `docs/security/school-profile-module-admin.md`
 - Theme settings module admin: `docs/security/theme-settings-module-admin.md`
 - Navigation management module admin: `docs/security/navigation-management-module-admin.md`
+- Audit log admin viewer: `docs/security/audit-log-admin-viewer.md`
 - Struktur modular: `docs/architecture/modular-monolith-structure.md`
 
 ## Workflow

@@ -21,7 +21,8 @@ Referensi roadmap: `project-planning/19-master-task-roadmap.md`
 - [x] T016 - School Profile Module (Admin)
 - [x] T017 - Theme Settings Module
 - [x] T018 - Navigation Management Module
-- [ ] T019+ - Menunggu eksekusi bertahap sesuai dependency
+- [x] T019 - Audit Log Admin Viewer
+- [ ] T020+ - Menunggu eksekusi bertahap sesuai dependency
 
 ## Catatan T002
 - Laravel 13 berhasil bootstrap.
@@ -146,3 +147,11 @@ Referensi roadmap: `project-planning/19-master-task-roadmap.md`
 - Policy `NavigationMenuPolicy` dan `NavigationItemPolicy` aktif untuk enforce `navigation.view` dan `navigation.update`.
 - Audit event navigation aktif via observer (`navigation.menu_updated`, `navigation.item_created`, `navigation.item_updated`, `navigation.item_deleted`, `navigation.items_reordered`).
 - Feature tests navigation ditambahkan untuk authorization allow/deny, validasi URL/route, validasi hierarchy/order, serta audit event.
+
+## Catatan T019
+- Halaman audit log viewer admin (`/admin/audit-logs`) ditambahkan melalui Filament Resource read-only.
+- Viewer mendukung filter actor, module, dan rentang tanggal `created_at`.
+- Policy `AuditLogPolicy` dipakai penuh untuk enforce akses `audit.view` pada backend.
+- Relasi actor pada model `AuditLog` ditambahkan untuk filter user yang konsisten.
+- Dashboard quick link `Audit Logs` kini berstatus ready dan mengarah ke viewer audit logs.
+- Feature tests audit log viewer ditambahkan untuk skenario allow/deny dan verifikasi filter actor/module/date.

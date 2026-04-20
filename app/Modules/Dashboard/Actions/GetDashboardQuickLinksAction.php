@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Modules\Dashboard\Actions;
 
 use App\Filament\Resources\Announcements\AnnouncementResource;
+use App\Filament\Resources\AuditLogs\AuditLogResource;
 use App\Filament\Resources\Galleries\GalleryResource;
 use App\Filament\Resources\MediaAssets\MediaAssetResource;
 use App\Filament\Resources\NavigationMenus\NavigationMenuResource;
@@ -92,8 +93,8 @@ class GetDashboardQuickLinksAction
                 'label' => 'Audit Logs',
                 'description' => 'Inspeksi aktivitas admin.',
                 'permission' => PermissionName::AUDIT_VIEW,
-                'is_ready' => false,
-                'url' => null,
+                'is_ready' => true,
+                'url' => AuditLogResource::getUrl('index'),
             ],
         ];
 
