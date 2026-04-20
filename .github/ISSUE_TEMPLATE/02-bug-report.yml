@@ -1,0 +1,42 @@
+name: "Bug Report"
+description: "Laporkan bug pada CMS Sekolah"
+title: "[BUG] <ringkasan bug>"
+labels: ["bug"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Ringkasan
+      description: Deskripsikan bug secara ringkas
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Langkah Reproduksi
+      description: Langkah detail untuk memunculkan bug
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Hasil Diharapkan
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Hasil Aktual
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: local / staging / production
+    validations:
+      required: true

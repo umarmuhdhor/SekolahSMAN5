@@ -1,0 +1,41 @@
+name: "Change Request / Architecture Decision Change"
+description: "Template perubahan besar terhadap arsitektur/scope/stack"
+title: "[CR] <ringkasan perubahan>"
+labels: ["change-request"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Masalah / Latar Belakang
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Usulan Perubahan
+      description: Jelaskan perubahan yang diusulkan
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Dampak Teknis dan Timeline
+      description: Dampak ke arsitektur, stack, modul, dan jadwal
+    validations:
+      required: true
+
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risiko dan Mitigasi
+    validations:
+      required: true
+
+  - type: textarea
+    id: rollback
+    attributes:
+      label: Rencana Rollback
+    validations:
+      required: true

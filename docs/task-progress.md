@@ -1,0 +1,79 @@
+# Task Progress Tracker
+
+Referensi roadmap: `project-planning/19-master-task-roadmap.md`
+
+## Status Ringkas
+- [x] T001 - Repository Baseline & Branch Rules
+- [x] T002 - Laravel 13 Skeleton + Filament 5 Bootstrap
+- [x] T003 - Docker Compose Local Stack
+- [x] T004 - Environment Configuration Baseline
+- [x] T005 - CI Baseline GitHub Actions
+- [x] T006 - Session Authentication Foundation
+- [x] T007 - Role & Permission Foundation
+- [x] T008 - Gate/Policy Enforcement
+- [x] T009 - Audit Log Foundation
+- [x] T010 - User Management Module
+- [x] T011 - Admin Dashboard Core
+- [ ] T012+ - Menunggu eksekusi bertahap sesuai dependency
+
+## Catatan T002
+- Laravel 13 berhasil bootstrap.
+- Filament 5 terpasang dengan panel provider `AdminPanelProvider`.
+- Route admin tersedia: `/admin`, `/admin/login`, `/admin/logout`.
+- Struktur modular baseline dibuat di `app/Modules`.
+
+## Catatan T003
+- `docker-compose.yml` dibuat dengan service: app, nginx, postgres, redis, minio, minio-init.
+- Dockerfile PHP baseline tersedia di `docker/php/Dockerfile`.
+- Nginx config baseline tersedia di `docker/nginx/conf.d/default.conf`.
+
+## Catatan T004
+- `.env.example` disesuaikan untuk PostgreSQL + Redis + MinIO.
+- Template environment staging dan production dibuat.
+- Dokumen baseline environment tersedia di `docs/environment-baseline.md`.
+
+## Catatan T005
+- Workflow CI baseline dibuat di `.github/workflows/ci.yml`.
+- Job wajib: `lint` (composer validate + pint), `test` (migrate + feature tests).
+- Branch protection checklist diperbarui dengan required status checks: `CI / lint`, `CI / test`.
+
+## Catatan T006
+- Login admin tetap session-based melalui Filament panel (`/admin/login`).
+- Login throttling dapat dikonfigurasi lewat `AUTH_LOGIN_MAX_ATTEMPTS` dan `AUTH_LOGIN_DECAY_SECONDS`.
+- Event auth (login, failed_login, logout) dicatat sebagai baseline audit.
+- Feature tests auth session dan auth audit logging ditambahkan.
+
+## Catatan T007
+- Package `spatie/laravel-permission` terintegrasi dan migration/config dipublish.
+- Role wajib `super_admin`, `guru`, `siswa`, `orang_tua` disediakan via seeder foundation.
+- Permission baseline modular disediakan via katalog `PermissionName`.
+- Akses panel admin dibatasi ke role admin (`super_admin`, `guru`) melalui `User::canAccessPanel()`.
+- Seed super admin default ditambahkan pada `DatabaseSeeder`.
+
+## Catatan T008
+- Gate dan Policy foundation aktif melalui `AuthServiceProvider`.
+- Enforcement backend admin panel memakai gate `panel.access` (bukan hanya pembatasan UI).
+- Dashboard admin memakai gate `panel.dashboard.view`.
+- Policy foundation (`UserPolicy`, `RolePolicy`, `PermissionPolicy`) disiapkan untuk konsistensi modul lanjutan.
+- Feature tests authorization allow/deny ditambahkan untuk memverifikasi pass/fail secara otomatis.
+
+## Catatan T009
+- Tabel audit terstruktur `audit_logs` ditambahkan sebagai fondasi append-only.
+- Action `RecordAuditLogAction` ditambahkan dengan redaksi data sensitif.
+- Event auth (`login`, `failed_login`, `logout`) direkam ke audit table.
+- Event mutasi dasar role/permission (`role_change`, `permission_change`) direkam dari event Spatie.
+- Feature tests audit foundation ditambahkan untuk verifikasi immutable + pass/fail event logging.
+
+## Catatan T010
+- Modul manajemen user admin (`/admin/users`) ditambahkan melalui Filament Resource.
+- CRUD user mencakup nama, email unik, password, status aktif (`is_active`), dan assign role.
+- Enforcement policy backend aktif untuk users module + guard delete super admin terakhir.
+- User nonaktif ditolak mengakses panel admin.
+- Audit perubahan user (`user.created`, `user.updated`, `user.status_changed`, `user.deleted`) ditambahkan via observer.
+- Feature tests user management ditambahkan untuk skenario allow/deny, validasi email unik, dan audit status/role.
+
+## Catatan T011
+- Dashboard admin core diperkuat dengan widget ringkasan operasional.
+- Quick links modul inti ditambahkan dan difilter berdasarkan permission user.
+- Resource navigation (`Users`) dipastikan mengikuti policy `viewAny` sehingga hanya tampil untuk role berhak.
+- Feature tests dashboard core ditambahkan untuk verifikasi filtering quick links dan guard menu.

@@ -1,0 +1,73 @@
+name: "Task Execution"
+description: "Template issue untuk eksekusi task roadmap CMS Sekolah"
+title: "[TASK] <Task ID> - <Nama Task>"
+labels: ["task"]
+body:
+  - type: input
+    id: task_id
+    attributes:
+      label: Task ID
+      description: Contoh T013
+      placeholder: T000
+    validations:
+      required: true
+
+  - type: input
+    id: plan_reference
+    attributes:
+      label: Referensi Plan
+      description: File plan utama yang menjadi acuan task
+      placeholder: project-planning/07-news-module-plan.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Tujuan Task
+      description: Outcome yang harus dicapai di sesi ini
+    validations:
+      required: true
+
+  - type: textarea
+    id: in_scope
+    attributes:
+      label: In Scope
+      description: Yang akan dikerjakan dalam task ini
+    validations:
+      required: true
+
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: Out of Scope
+      description: Yang tidak boleh dikerjakan
+    validations:
+      required: true
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependensi
+      description: Task yang harus selesai dulu
+      placeholder: T010, T011
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Kriteria penerimaan task
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: gates
+    attributes:
+      label: Checklist Kualitas
+      options:
+        - label: Authorization policy/gate dipertimbangkan
+        - label: Audit event dipertimbangkan
+        - label: Testing dipertimbangkan
+        - label: Dokumentasi kode dipertimbangkan
