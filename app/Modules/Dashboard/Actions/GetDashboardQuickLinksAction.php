@@ -8,6 +8,8 @@ use App\Filament\Resources\Announcements\AnnouncementResource;
 use App\Filament\Resources\Galleries\GalleryResource;
 use App\Filament\Resources\MediaAssets\MediaAssetResource;
 use App\Filament\Resources\News\NewsResource;
+use App\Filament\Resources\SchoolProfiles\SchoolProfileResource;
+use App\Filament\Resources\ThemeSettings\ThemeSettingResource;
 use App\Filament\Resources\Users\UserResource;
 use App\Models\User;
 use App\Modules\RolesPermissions\Support\PermissionName;
@@ -65,16 +67,16 @@ class GetDashboardQuickLinksAction
                 'label' => 'School Profile',
                 'description' => 'Perbarui profil sekolah.',
                 'permission' => PermissionName::SCHOOL_PROFILE_VIEW,
-                'is_ready' => false,
-                'url' => null,
+                'is_ready' => true,
+                'url' => SchoolProfileResource::getUrl('index'),
             ],
             [
                 'key' => 'theme',
                 'label' => 'Theme Settings',
                 'description' => 'Atur tema dan branding.',
                 'permission' => PermissionName::THEME_VIEW,
-                'is_ready' => false,
-                'url' => null,
+                'is_ready' => true,
+                'url' => ThemeSettingResource::getUrl('index'),
             ],
             [
                 'key' => 'navigation',

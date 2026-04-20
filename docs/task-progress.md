@@ -18,7 +18,9 @@ Referensi roadmap: `project-planning/19-master-task-roadmap.md`
 - [x] T013 - News Module (Admin)
 - [x] T014 - Announcement Module (Admin)
 - [x] T015 - Gallery Module (Admin)
-- [ ] T016+ - Menunggu eksekusi bertahap sesuai dependency
+- [x] T016 - School Profile Module (Admin)
+- [x] T017 - Theme Settings Module
+- [ ] T018+ - Menunggu eksekusi bertahap sesuai dependency
 
 ## Catatan T002
 - Laravel 13 berhasil bootstrap.
@@ -115,3 +117,21 @@ Referensi roadmap: `project-planning/19-master-task-roadmap.md`
 - Aksi publish/unpublish diverifikasi server-side dan tercatat audit event (`gallery.created`, `gallery.updated`, `gallery.deleted`, `gallery.published`, `gallery.unpublished`, `gallery.item_added`, `gallery.item_removed`, `gallery.items_reordered`).
 - Scope model `published()` disiapkan sebagai fondasi filter visibilitas publik gallery.
 - Feature tests gallery ditambahkan untuk authorization, slug uniqueness, sorting stability, media relation validity, dan audit event.
+
+## Catatan T016
+- Modul school profile admin (`/admin/school-profile`) ditambahkan melalui Filament Resource.
+- Implementasi memakai pola single-record config table `school_profile` dengan `singleton_key` unik.
+- Validasi backend kontak aktif untuk field email dan telepon.
+- Policy `SchoolProfilePolicy` aktif untuk enforce `school_profile.view` dan `school_profile.update`.
+- Pembuatan record profil kedua ditolak server-side untuk menjaga pola single-row.
+- Audit perubahan profil aktif via observer dengan event `school_profile_update`.
+- Feature tests school profile ditambahkan untuk skenario allow/deny, validasi kontak, single-record enforcement, dan audit update.
+
+## Catatan T017
+- Modul theme settings admin (`/admin/theme-settings`) ditambahkan melalui Filament Resource.
+- Implementasi mencakup pemilihan logo dari media library + token warna `primary/secondary/accent`.
+- Validasi backend HEX 6 digit aktif pada seluruh input warna.
+- Fallback aman aktif melalui `ResolveActiveThemeSettingsAction` untuk logo default dan palette default ketika data kosong/invalid.
+- Policy `ThemeSettingPolicy` aktif untuk enforce `theme.view` dan `theme.update`.
+- Audit perubahan tema aktif via observer dengan event `theme.updated` dan `theme.logo_changed`.
+- Feature tests theme settings ditambahkan untuk skenario authorization allow/deny, validasi pass/fail HEX, fallback, dan audit event.

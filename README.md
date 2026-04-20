@@ -31,6 +31,8 @@ Repository ini berisi implementasi CMS Sekolah Dinamis berbasis Laravel 13 + Fil
 - T013: News module (admin) selesai.
 - T014: Announcement module (admin) selesai.
 - T015: Gallery module (admin) selesai.
+- T016: School profile module (admin) selesai.
+- T017: Theme settings module selesai.
 
 ## Menjalankan Proyek (Default: Docker Compose)
 1. Salin environment local:
@@ -90,6 +92,8 @@ Seed default akan membuat akun super admin berdasarkan variabel:
 - Sejak T013, quick link `News` sudah aktif dan mengarah ke `/admin/news`.
 - Sejak T014, quick link `Announcements` sudah aktif dan mengarah ke `/admin/announcements`.
 - Sejak T015, quick link `Galleries` sudah aktif dan mengarah ke `/admin/galleries`.
+- Sejak T016, quick link `School Profile` sudah aktif dan mengarah ke `/admin/school-profile`.
+- Sejak T017, quick link `Theme Settings` sudah aktif dan mengarah ke `/admin/theme-settings`.
 
 ## Catatan Media T012
 - Modul media library tersedia di admin panel (`/admin/media-assets`).
@@ -116,6 +120,20 @@ Seed default akan membuat akun super admin berdasarkan variabel:
 - Publish/unpublish diproteksi backend authorization (`galleries.publish`) dan tidak hanya dibatasi UI.
 - Audit mutasi gallery aktif (`gallery.created`, `gallery.updated`, `gallery.deleted`, `gallery.published`, `gallery.unpublished`, `gallery.item_added`, `gallery.item_removed`, `gallery.items_reordered`).
 
+## Catatan School Profile T016
+- Modul school profile tersedia di admin panel (`/admin/school-profile`) sebagai single-record settings.
+- Validasi data kontak aktif di backend untuk email dan telepon.
+- Pembuatan record profil kedua ditolak server-side (single-row enforcement).
+- Update profil diproteksi backend authorization (`school_profile.update`).
+- Audit perubahan profil aktif (`school_profile_update`).
+
+## Catatan Theme Settings T017
+- Modul theme settings tersedia di admin panel (`/admin/theme-settings`) untuk branding logo + warna.
+- Validasi backend HEX 6 digit aktif untuk `primary_color`, `secondary_color`, dan `accent_color`.
+- Fallback aman aktif untuk palette warna serta logo default jika konfigurasi kosong/invalid.
+- Update theme diproteksi backend authorization (`theme.update`) dan tidak hanya dibatasi UI.
+- Audit mutasi theme aktif (`theme.updated`, `theme.logo_changed`).
+
 ## Referensi Operasional
 - Local docker setup: `docs/local-development-docker.md`
 - Environment baseline: `docs/environment-baseline.md`
@@ -130,6 +148,8 @@ Seed default akan membuat akun super admin berdasarkan variabel:
 - News module admin: `docs/security/news-module-admin.md`
 - Announcement module admin: `docs/security/announcement-module-admin.md`
 - Gallery module admin: `docs/security/gallery-module-admin.md`
+- School profile module admin: `docs/security/school-profile-module-admin.md`
+- Theme settings module admin: `docs/security/theme-settings-module-admin.md`
 - Struktur modular: `docs/architecture/modular-monolith-structure.md`
 
 ## Workflow

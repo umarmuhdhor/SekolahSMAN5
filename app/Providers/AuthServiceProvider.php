@@ -13,6 +13,8 @@ use App\Modules\News\Models\News;
 use App\Modules\RolesPermissions\Support\AuthorizationAbility;
 use App\Modules\RolesPermissions\Support\PermissionName;
 use App\Modules\RolesPermissions\Support\RoleName;
+use App\Modules\SchoolProfile\Models\SchoolProfile;
+use App\Modules\ThemeSettings\Models\ThemeSetting;
 use App\Policies\AnnouncementPolicy;
 use App\Policies\AuditLogPolicy;
 use App\Policies\GalleryPolicy;
@@ -20,6 +22,8 @@ use App\Policies\MediaAssetPolicy;
 use App\Policies\NewsPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\RolePolicy;
+use App\Policies\SchoolProfilePolicy;
+use App\Policies\ThemeSettingPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -42,6 +46,8 @@ class AuthServiceProvider extends ServiceProvider
         News::class => NewsPolicy::class,
         Announcement::class => AnnouncementPolicy::class,
         Gallery::class => GalleryPolicy::class,
+        SchoolProfile::class => SchoolProfilePolicy::class,
+        ThemeSetting::class => ThemeSettingPolicy::class,
     ];
 
     /**
