@@ -35,6 +35,14 @@ Repository ini berisi implementasi CMS Sekolah Dinamis berbasis Laravel 13 + Fil
 - T017: Theme settings module selesai.
 - T018: Navigation management module selesai.
 - T019: Audit log admin viewer selesai.
+- T020: Public frontend layout + homepage selesai.
+- T021: Public news pages selesai.
+- T022: Public announcement pages selesai.
+- T023: Public gallery pages selesai.
+- T024: QA hardening auth/permission/audit selesai.
+- T025: QA hardening media/settings selesai.
+- T026: Deployment prep staging selesai.
+- T027: Production readiness & handover selesai.
 
 ## Menjalankan Proyek (Default: Docker Compose)
 1. Salin environment local:
@@ -150,6 +158,54 @@ Seed default akan membuat akun super admin berdasarkan variabel:
 - Filter audit mendukung actor, module, dan rentang tanggal untuk kebutuhan forensic baseline.
 - Akses viewer diproteksi backend authorization (`audit.view`) dan tidak hanya dibatasi UI.
 
+## Catatan Public Frontend T020
+- Homepage publik tersedia di route root (`/`) dengan layout Blade SSR dinamis.
+- Branding publik (logo + warna) menggunakan theme settings aktif dengan fallback aman.
+- Informasi profil sekolah (nama, deskripsi, kontak, sosial) dikonsumsi dari school profile dengan fallback aman.
+- Navigasi publik header/footer dikonsumsi dari navigation management; item hidden dan route invalid tidak dirender.
+
+## Catatan Public News T021
+- Halaman berita publik tersedia di `/berita` (listing) dan `/berita/{slug}` (detail).
+- Query publik hanya merender berita dengan status `published` dan `published_at` terisi.
+- Detail slug non-published (draft/archived/tanpa tanggal publish) mengembalikan HTTP 404.
+- Listing publik dipaginasi (9 item per halaman) dan tetap membawa parameter query.
+
+## Catatan Public Announcements T022
+- Halaman pengumuman publik tersedia di `/pengumuman` (listing) dan `/pengumuman/{slug}` (detail).
+- Query publik memakai rule `visibleOnPublic()` sehingga hanya menampilkan pengumuman `published` dengan `published_at` terisi dan publish window aktif.
+- Detail slug yang tidak lolos visibilitas publik (draft/archived/belum mulai/sudah lewat/tanpa tanggal publish) mengembalikan HTTP 404.
+- Listing publik dipaginasi (9 item per halaman) dan tetap membawa parameter query.
+
+## Catatan Public Galleries T023
+- Halaman galeri publik tersedia di `/galeri` (listing) dan `/galeri/{slug}` (detail).
+- Query publik hanya merender album dengan status `published` dan `published_at` terisi.
+- Detail slug non-published (draft/archived/tanpa tanggal publish) mengembalikan HTTP 404.
+- Listing publik dipaginasi (9 item per halaman) dan tetap membawa parameter query.
+- URL media gallery diselesaikan dengan fallback aman ke placeholder (`/assets/theme/default-gallery-image.svg`) jika item/media tidak tersedia atau file tidak dapat diakses.
+
+## Catatan QA Hardening T024
+- Regression test lintas modul ditambahkan untuk memastikan guest selalu diarahkan ke `/admin/login` pada route admin kritikal.
+- Matrix permission lintas modul konten ditambahkan untuk memverifikasi role `siswa` ditolak server-side pada route manajemen konten.
+- Hardening publish visibility lintas surface publik (`/berita`, `/pengumuman`, `/galeri`) ditambahkan untuk menutup kebocoran konten non-visible.
+- Verifikasi audit lifecycle lintas modul konten ditambahkan untuk menjamin event `created/published/unpublished/deleted` tercatat lengkap.
+
+## Catatan QA Hardening T025
+- Regression test edge-case media ditambahkan untuk validasi backend ukuran file per MIME pattern, sanitasi nama file, dan checksum.
+- Resolver theme aktif diperkuat agar kondisi logo media hilang tetap menandai `is_fallback=true` (bukan hanya mengganti URL logo).
+- Regression test navigation ditambahkan untuk menolak konfigurasi link berbahaya/invalid di resolver publik, normalisasi label kosong, dan pembatasan kedalaman tree publik.
+- Validasi sort order navigation pada level parent yang sama diverifikasi ulang untuk edge-case sibling duplicate.
+
+## Catatan Deployment Prep T026
+- Pipeline deployment staging ditambahkan di GitHub Actions (`.github/workflows/deploy-staging.yml`).
+- Job deploy staging menjalankan checkout SHA rilis, install dependency produksi, build asset, migrate, cache optimize, dan queue restart.
+- Smoke validation staging diotomasi via `scripts/smoke-staging.sh` untuk endpoint kritikal (`/`, `/berita`, `/pengumuman`, `/galeri`, `/admin/login`).
+- Dokumentasi operasional staging deployment dan smoke checklist ditambahkan untuk eksekusi release verification.
+
+## Catatan Production Readiness T027
+- Checklist go-live production ditambahkan untuk validasi pra-rilis, cutover, pasca-rilis, dan sign-off internal.
+- Runbook operasional production ditambahkan mencakup prosedur deploy, monitoring, klasifikasi incident, dan rollback (aplikasi + database).
+- Dokumen handover admin production ditambahkan untuk SOP operasional harian, publikasi konten, manajemen akses, dan audit keamanan.
+
 ## Referensi Operasional
 - Local docker setup: `docs/local-development-docker.md`
 - Environment baseline: `docs/environment-baseline.md`
@@ -168,6 +224,15 @@ Seed default akan membuat akun super admin berdasarkan variabel:
 - Theme settings module admin: `docs/security/theme-settings-module-admin.md`
 - Navigation management module admin: `docs/security/navigation-management-module-admin.md`
 - Audit log admin viewer: `docs/security/audit-log-admin-viewer.md`
+- QA hardening auth/permission/audit: `docs/security/qa-hardening-auth-permission-audit.md`
+- QA hardening media/settings: `docs/security/qa-hardening-media-settings.md`
+- Staging deployment baseline: `docs/staging-deployment.md`
+- Staging smoke checklist: `docs/staging-smoke-checklist.md`
+- Production go-live checklist: `docs/production-go-live-checklist.md`
+- Production operations & rollback runbook: `docs/production-operations-runbook.md`
+- Production admin handover: `docs/production-admin-handover.md`
+- Production sign-off record: `docs/production-signoff-record.md`
+- Release PR notes T027: `docs/release-pr-notes-t027.md`
 - Struktur modular: `docs/architecture/modular-monolith-structure.md`
 
 ## Workflow

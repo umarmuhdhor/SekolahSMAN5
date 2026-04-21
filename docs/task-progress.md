@@ -22,7 +22,14 @@ Referensi roadmap: `project-planning/19-master-task-roadmap.md`
 - [x] T017 - Theme Settings Module
 - [x] T018 - Navigation Management Module
 - [x] T019 - Audit Log Admin Viewer
-- [ ] T020+ - Menunggu eksekusi bertahap sesuai dependency
+- [x] T020 - Public Frontend Layout + Homepage
+- [x] T021 - Public News Pages
+- [x] T022 - Public Announcement Pages
+- [x] T023 - Public Gallery Pages
+- [x] T024 - QA Hardening Auth/Permission/Audit
+- [x] T025 - QA Hardening Media and Settings
+- [x] T026 - Deployment Prep (Staging)
+- [x] T027 - Production Readiness & Handover
 
 ## Catatan T002
 - Laravel 13 berhasil bootstrap.
@@ -155,3 +162,60 @@ Referensi roadmap: `project-planning/19-master-task-roadmap.md`
 - Relasi actor pada model `AuditLog` ditambahkan untuk filter user yang konsisten.
 - Dashboard quick link `Audit Logs` kini berstatus ready dan mengarah ke viewer audit logs.
 - Feature tests audit log viewer ditambahkan untuk skenario allow/deny dan verifikasi filter actor/module/date.
+
+## Catatan T020
+- Public layout frontend dinamis aktif di route root (`/`) melalui Blade SSR.
+- Homepage mengonsumsi data theme settings, school profile, dan navigation menu publik dengan fallback aman saat data belum tersedia.
+- Item navigasi hidden dan route invalid tidak dirender di frontend publik.
+- Feature tests homepage publik ditambahkan untuk fallback, render konfigurasi aktif, dan skip route invalid.
+
+## Catatan T021
+- Public news pages aktif pada route `/berita` (listing) dan `/berita/{slug}` (detail).
+- Query publik hanya menampilkan news berstatus `published` dengan `published_at` terisi.
+- Detail slug non-published (draft/archived/tanpa tanggal publish) ditolak dengan HTTP 404.
+- Listing publik dipaginasi 9 item per halaman dan mempertahankan query string.
+- Feature tests public news ditambahkan untuk filter visibilitas, empty state, detail published, guard 404, dan pagination.
+
+## Catatan T022
+- Public announcement pages aktif pada route `/pengumuman` (listing) dan `/pengumuman/{slug}` (detail).
+- Query publik menggunakan scope `visibleOnPublic()` sehingga aturan status publish + publish window konsisten dengan requirement.
+- Detail slug yang tidak visible di publik ditolak dengan HTTP 404.
+- Listing publik dipaginasi 9 item per halaman dan mempertahankan query string.
+- Feature tests public announcements ditambahkan untuk filter visibilitas berbasis publish window, empty state, detail visible, guard 404, dan pagination.
+
+## Catatan T023
+- Public gallery pages aktif pada route `/galeri` (listing) dan `/galeri/{slug}` (detail).
+- Query publik hanya mengambil gallery berstatus `published` dengan `published_at` terisi.
+- Detail slug non-published ditolak dengan HTTP 404.
+- Listing publik dipaginasi 9 item per halaman dan mempertahankan query string.
+- Resolver media publik gallery menambahkan fallback aman ke placeholder ketika item media kosong, file media tidak tersedia, atau disk tidak dapat diakses.
+- Feature tests public galleries ditambahkan untuk filter visibilitas, empty state, detail published, guard 404, pagination, serta fallback media.
+
+## Catatan T024
+- Test hardening lintas modul ditambahkan pada `tests/Feature/QA/QAHardeningAuthPermissionAuditTest.php`.
+- Guest redirect ke `/admin/login` diverifikasi pada route admin kritikal lintas modul.
+- Matrix permission role `siswa` lintas route manajemen konten (`news`, `announcements`, `galleries`) diverifikasi dengan expected `403`.
+- Hardening publish leakage lintas surface publik diverifikasi agar konten non-visible tidak bocor.
+- Audit completeness lifecycle lintas modul konten diverifikasi untuk event `created/published/unpublished/deleted`.
+
+## Catatan T025
+- Test hardening media/settings ditambahkan pada `tests/Feature/QA/QAHardeningMediaSettingsTest.php`.
+- Edge-case upload media diverifikasi: batas ukuran MIME-specific, sanitasi nama file, dan konsistensi checksum.
+- Resolver theme aktif diperkuat untuk menandai fallback saat logo media tidak dapat diakses (`is_fallback=true`).
+- Resolver navigation publik diverifikasi untuk skip item invalid/berbahaya, normalisasi label kosong, dan pembatasan kedalaman tree.
+- Validasi sort order navigation pada sibling level diverifikasi ulang untuk mencegah duplikasi order pada parent yang sama.
+
+## Catatan T026
+- Pipeline deploy staging ditambahkan pada `.github/workflows/deploy-staging.yml`.
+- Deploy job staging menjalankan update source berdasarkan SHA rilis, install dependency produksi, build asset, migrate, optimize cache, dan queue restart.
+- Smoke test endpoint kritikal diotomasi melalui `scripts/smoke-staging.sh`.
+- Dokumentasi operasional deployment staging ditambahkan di `docs/staging-deployment.md`.
+- Checklist validasi pasca-deploy ditambahkan di `docs/staging-smoke-checklist.md`.
+
+## Catatan T027
+- Checklist go-live production ditambahkan di `docs/production-go-live-checklist.md`.
+- Runbook operasional production + rollback ditambahkan di `docs/production-operations-runbook.md`.
+- Dokumen handover admin operasional production ditambahkan di `docs/production-admin-handover.md`.
+- Kriteria sign-off internal diformalkan melalui tabel approval pada checklist go-live.
+- Template pencatatan keputusan final `GO/NO-GO` ditambahkan di `docs/production-signoff-record.md`.
+- Draft PR notes release T027 ditambahkan di `docs/release-pr-notes-t027.md`.

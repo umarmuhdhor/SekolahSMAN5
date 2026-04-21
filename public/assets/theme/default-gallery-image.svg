@@ -1,0 +1,27 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Placeholder Galeri</title>
+  <desc id="desc">Gambar cadangan saat media galeri belum tersedia.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0EA5E9" stop-opacity="0.22"/>
+      <stop offset="0.5" stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#F97316" stop-opacity="0.24"/>
+    </linearGradient>
+    <linearGradient id="frame" x1="220" y1="170" x2="980" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#0F172A" stop-opacity="0.22"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" rx="36" fill="url(#bg)"/>
+  <rect x="220" y="170" width="760" height="460" rx="24" fill="white"/>
+  <rect x="220" y="170" width="760" height="460" rx="24" fill="url(#frame)"/>
+
+  <rect x="300" y="260" width="600" height="250" rx="16" fill="#E2E8F0"/>
+  <path d="M332 476L472 336L566 430L678 318L868 508H332V476Z" fill="#94A3B8"/>
+  <circle cx="774" cy="314" r="34" fill="#CBD5E1"/>
+
+  <text x="600" y="592" text-anchor="middle" font-family="Manrope, Segoe UI, sans-serif" font-size="36" font-weight="700" fill="#334155">
+    Media Galeri Belum Tersedia
+  </text>
+</svg>
