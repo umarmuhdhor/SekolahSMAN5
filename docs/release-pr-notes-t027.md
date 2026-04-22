@@ -27,8 +27,8 @@
   - Tidak ada perubahan skema/logika audit di kode.
   - Dokumen handover menegaskan review periodik audit log untuk event sensitif.
 - Testing:
-  - Regression suite tetap lulus setelah perubahan dokumentasi.
-  - Hasil verifikasi terakhir: `100 passed, 524 assertions` via `php artisan test`.
+  - Quality gate final lulus: `vendor/bin/pint` (`pass`).
+  - Hasil verifikasi terakhir: `99 passed, 523 assertions` via `php artisan test --testsuite=Feature`.
 
 ## Risiko dan Trade-Off
 - Risiko utama: kualitas operasional tetap bergantung pada disiplin eksekusi checklist oleh tim.
