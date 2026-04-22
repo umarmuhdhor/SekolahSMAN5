@@ -81,7 +81,7 @@ class PublicGalleryPagesTest extends TestCase
         $gallery = Gallery::factory()->published()->create([
             'title' => 'Dokumentasi Study Tour',
             'slug' => 'dokumentasi-study-tour',
-            'description' => "Album kegiatan study tour siswa kelas XII.",
+            'description' => 'Album kegiatan study tour siswa kelas XII.',
         ]);
 
         $media = $this->createMediaAsset('image-missing.jpg');
