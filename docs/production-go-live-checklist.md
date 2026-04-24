@@ -7,7 +7,7 @@ Checklist ini dipakai untuk validasi readiness sebelum dan sesudah cutover produ
 - Infrastruktur aplikasi, database, queue, storage object.
 - Validasi operasional, keamanan, dan handover tim admin.
 
-## Snapshot Verifikasi Saat Ini (Pre-Cutover, 2026-04-23)
+## Snapshot Verifikasi Saat Ini (Pre-Cutover, 2026-04-24)
 - [x] Branch release `feature/t027-production-readiness-handover` dalam kondisi hijau (CI `lint` dan `test` lulus di PR).
 - [x] Dokumen handover/release T027 tersedia dan sinkron.
 - [ ] Deploy + smoke check staging terbaru untuk SHA target (menunggu konfirmasi infra/ops).

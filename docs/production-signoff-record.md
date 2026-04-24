@@ -3,9 +3,9 @@
 Dokumen ini dipakai untuk pencatatan keputusan go-live final agar approval dapat ditelusuri.
 
 ## Informasi Rilis
-- Tanggal rilis: 2026-04-23 (pre-cutover verification)
+- Tanggal rilis: 2026-04-24 (pre-cutover verification)
 - Window rilis: Menunggu jadwal cutover H-0 dari tim infra/ops
-- Commit SHA: `ade3d41` (`feature/t027-production-readiness-handover`)
+- Commit SHA: Ditetapkan saat cutover H-0 (gunakan SHA merge commit pada `main`)
 - Environment: `production`
 - Operator on-duty: Menunggu penetapan tim infra/ops
 
