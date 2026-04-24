@@ -1,0 +1,135 @@
+name: Deploy Staging
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_smoke:
+        description: Jalankan smoke test setelah deploy
+        required: false
+        default: true
+        type: boolean
+      skip_migrate:
+        description: Lewati langkah migrate (opsional saat verifikasi non-DB)
+        required: false
+        default: false
+        type: boolean
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: staging-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: deploy-staging
+    runs-on: ubuntu-latest
+    environment: staging
+
+    env:
+      STAGING_SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+      STAGING_SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
+      STAGING_SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+      STAGING_SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+      STAGING_APP_DIR: ${{ secrets.STAGING_APP_DIR }}
+      SKIP_MIGRATE: ${{ github.event_name == 'workflow_dispatch' && inputs.skip_migrate || 'false' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate staging secrets
+        run: |
+          set -euo pipefail
+
+          required_vars=(
+            STAGING_SSH_HOST
+            STAGING_SSH_USER
+            STAGING_SSH_KEY
+            STAGING_APP_DIR
+          )
+
+          for var_name in "${required_vars[@]}"; do
+            if [ -z "${!var_name:-}" ]; then
+              echo "::error::Secret ${var_name} belum diset pada environment staging."
+              exit 1
+            fi
+          done
+
+      - name: Prepare SSH key
+        run: |
+          set -euo pipefail
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$STAGING_SSH_KEY" > ~/.ssh/staging_key
+          chmod 600 ~/.ssh/staging_key
+
+      - name: Add staging host to known_hosts
+        run: |
+          set -euo pipefail
+          ssh-keyscan -p "${STAGING_SSH_PORT:-22}" "$STAGING_SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Deploy application to staging server
+        run: |
+          set -euo pipefail
+
+          ssh -i ~/.ssh/staging_key -p "${STAGING_SSH_PORT:-22}" "$STAGING_SSH_USER@$STAGING_SSH_HOST" \
+            "APP_DIR='$STAGING_APP_DIR' RELEASE_SHA='${GITHUB_SHA}' SKIP_MIGRATE='${SKIP_MIGRATE}' bash -s" <<'REMOTE'
+          set -euo pipefail
+
+          cd "$APP_DIR"
+
+          if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+            echo "Direktori aplikasi staging bukan git repository: $APP_DIR"
+            exit 1
+          fi
+
+          git fetch --all --prune
+          git checkout --force "$RELEASE_SHA"
+          git reset --hard "$RELEASE_SHA"
+
+          composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+          npm ci --no-audit --no-fund
+          npm run build
+
+          if [ "$SKIP_MIGRATE" != "true" ]; then
+            php artisan migrate --force
+          fi
+
+          php artisan optimize:clear
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+          php artisan queue:restart || true
+REMOTE
+
+  smoke:
+    name: smoke-staging
+    runs-on: ubuntu-latest
+    environment: staging
+    needs: deploy
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.run_smoke }}
+
+    env:
+      STAGING_APP_URL: ${{ vars.STAGING_APP_URL }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate staging URL variable
+        run: |
+          set -euo pipefail
+
+          if [ -z "${STAGING_APP_URL:-}" ]; then
+            echo "::error::Variable STAGING_APP_URL belum diset pada environment staging."
+            exit 1
+          fi
+
+      - name: Run staging smoke check script
+        run: |
+          set -euo pipefail
+          bash scripts/smoke-staging.sh "$STAGING_APP_URL"

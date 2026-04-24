@@ -30,6 +30,20 @@ final class AuditEventType
 
     public const THEME_UPDATE = 'theme_update';
 
+    public const THEME_UPDATED = 'theme.updated';
+
+    public const THEME_LOGO_CHANGED = 'theme.logo_changed';
+
+    public const NAVIGATION_MENU_UPDATED = 'navigation.menu_updated';
+
+    public const NAVIGATION_ITEM_CREATED = 'navigation.item_created';
+
+    public const NAVIGATION_ITEM_UPDATED = 'navigation.item_updated';
+
+    public const NAVIGATION_ITEM_DELETED = 'navigation.item_deleted';
+
+    public const NAVIGATION_ITEMS_REORDERED = 'navigation.items_reordered';
+
     public const NAVIGATION_UPDATE = 'navigation_update';
 
     public const MEDIA_UPLOAD = 'media_upload';

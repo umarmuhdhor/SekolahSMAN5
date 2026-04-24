@@ -31,3 +31,7 @@ Dokumen ini menjelaskan fondasi dashboard admin dan navigation guard berbasis pe
 - Sejak T013, shortcut `News` sudah aktif dan mengarah ke modul news admin.
 - Sejak T014, shortcut `Announcements` sudah aktif dan mengarah ke modul announcements admin.
 - Sejak T015, shortcut `Galleries` sudah aktif dan mengarah ke modul galleries admin.
+- Sejak T016, shortcut `School Profile` sudah aktif dan mengarah ke modul school profile admin.
+- Sejak T017, shortcut `Theme Settings` sudah aktif dan mengarah ke modul theme settings admin.
+- Sejak T018, shortcut `Navigation` sudah aktif dan mengarah ke modul navigation management admin.
+- Sejak T019, shortcut `Audit Logs` sudah aktif dan mengarah ke modul audit log viewer admin.

@@ -22,3 +22,4 @@ Workflow CI baseline tersedia di `.github/workflows/ci.yml`.
 ## Catatan
 - Pipeline baseline menggunakan SQLite untuk kecepatan feedback PR.
 - Integration test PostgreSQL/Redis dapat ditambahkan pada task QA hardening berikutnya tanpa mengubah stack inti.
+- Deploy staging automation tersedia di `.github/workflows/deploy-staging.yml` dengan smoke validation endpoint kritikal.

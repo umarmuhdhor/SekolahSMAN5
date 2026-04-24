@@ -11,8 +11,16 @@ use App\Modules\Galleries\Observers\GalleryAuditObserver;
 use App\Modules\Galleries\Observers\GalleryItemAuditObserver;
 use App\Modules\MediaLibrary\Models\MediaAsset;
 use App\Modules\MediaLibrary\Observers\MediaAssetAuditObserver;
+use App\Modules\NavigationMenus\Models\NavigationItem;
+use App\Modules\NavigationMenus\Models\NavigationMenu;
+use App\Modules\NavigationMenus\Observers\NavigationItemAuditObserver;
+use App\Modules\NavigationMenus\Observers\NavigationMenuAuditObserver;
 use App\Modules\News\Models\News;
 use App\Modules\News\Observers\NewsAuditObserver;
+use App\Modules\SchoolProfile\Models\SchoolProfile;
+use App\Modules\SchoolProfile\Observers\SchoolProfileAuditObserver;
+use App\Modules\ThemeSettings\Models\ThemeSetting;
+use App\Modules\ThemeSettings\Observers\ThemeSettingAuditObserver;
 use App\Modules\Users\Observers\UserAuditObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -37,5 +45,9 @@ class AppServiceProvider extends ServiceProvider
         Announcement::observe(AnnouncementAuditObserver::class);
         Gallery::observe(GalleryAuditObserver::class);
         GalleryItem::observe(GalleryItemAuditObserver::class);
+        SchoolProfile::observe(SchoolProfileAuditObserver::class);
+        ThemeSetting::observe(ThemeSettingAuditObserver::class);
+        NavigationMenu::observe(NavigationMenuAuditObserver::class);
+        NavigationItem::observe(NavigationItemAuditObserver::class);
     }
 }

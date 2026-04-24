@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Modules\AuditLogs\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use LogicException;
 
 class AuditLog extends Model
@@ -51,5 +53,10 @@ class AuditLog extends Model
         static::deleting(static function (): never {
             throw new LogicException('Audit log is immutable and cannot be deleted.');
         });
+    }
+
+    public function actor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'actor_id');
     }
 }

@@ -1,10 +1,14 @@
 # Module SchoolProfile
 
 ## Tujuan
-Mengelola profil institusi sekolah sebagai konfigurasi global.
+Mengelola profil institusi sekolah sebagai konfigurasi global single-record.
 
 ## Status
-Placeholder struktur modul pada T002. Implementasi detail dilakukan pada task modul terkait di roadmap.
+Implementasi admin aktif pada T016:
+- pengaturan profil sekolah di panel admin (`/admin/school-profile`),
+- pola single-record configuration pada tabel `school_profile`,
+- validasi kontak backend (email dan telepon),
+- audit perubahan profil (`school_profile_update`).
 
 ## Subdirektori
 - Actions
